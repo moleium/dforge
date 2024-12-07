@@ -1,6 +1,6 @@
 import React from 'react'
-import { DargComponent } from '../parser/types'
-import { cn } from '../../lib/utils'
+import { DargComponent } from '@parser/types'
+import { cn } from '@lib/utils'
 
 interface Props {
   component: DargComponent

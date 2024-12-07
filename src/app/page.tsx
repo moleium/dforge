@@ -1,10 +1,10 @@
 "use client"
 
-import { DargPreviewer } from '../src/previewer/Previewer'
+import { DargPreviewer } from '@/previewer/Previewer'
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 
-const DargEditor = dynamic(() => import('../src/components/Editor').then(mod => mod.DargEditor), {
+const DargEditor = dynamic(() => import('@/components/editor').then(mod => mod.DargEditor), {
   ssr: false
 })
 
@@ -143,7 +143,7 @@ export default function Page() {
       </div>
 
       {/* Right Editor Panel */}
-      <div className="w-[450px] p-8 bg-muted/5">
+      <div className="w-[950px] p-8 bg-muted/5">
         <div className="h-full flex flex-col">
           <DargEditor
             value={squirrelCode}

@@ -22,7 +22,16 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@lib/*": ["src/lib/*"],
+      "@highlight/*": ["src/highlight/*"],
+      "@parser/*": ["src/parser/*"],
+      "@previewer/*": ["src/previewer/*"]
+    }
   },
   "include": [
     "**/*.ts",
