@@ -16,7 +16,9 @@ const nextConfig = {
       '@previewer': './src/previewer'
     }
     return config
-  }
+  },
+  output: 'export',
+  basePath: '/dforge'
 }
 
 module.exports = nextConfig
