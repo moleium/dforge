@@ -2,7 +2,7 @@
 
 import { DargPreviewer } from '@/previewer/Previewer'
 import { useState } from 'react'
-import { DargEditor } from '@/components/editor'
+import { DargEditor } from '@/components/editor.tsx' // weird
 
 export default function Page() {
   const [squirrelCode, setSquirrelCode] = useState(`
