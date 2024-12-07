@@ -253,7 +253,6 @@ export class DargParser {
   }
 
   private parsePrimitive(): any {
-    // Add debug for alignment values
     if (this.current() === 'A' && this.source.slice(this.pos).startsWith('ALIGN_')) {
       const identifier = this.parseIdentifier()
       switch(identifier) {
