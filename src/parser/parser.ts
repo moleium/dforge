@@ -253,6 +253,24 @@ export class DargParser {
   }
 
   private parsePrimitive(): any {
+    // Add debug for alignment values
+    if (this.current() === 'A' && this.source.slice(this.pos).startsWith('ALIGN_')) {
+      const identifier = this.parseIdentifier()
+      switch(identifier) {
+        case 'ALIGN_LEFT':
+        case 'ALIGN_TOP':
+          return 1
+        case 'ALIGN_CENTER':
+          return 2
+        case 'ALIGN_RIGHT':
+        case 'ALIGN_BOTTOM':
+          return 3
+        default:
+          console.warn('Unknown alignment:', identifier)
+          return identifier
+      }
+    }
+    
     // Handle different primitive types
     if (this.current() === '"' || this.current() === "'") {
       return this.parseString()

@@ -1,5 +1,6 @@
 import React from 'react'
 import { DargComponent } from '../parser/types'
+import { cn } from '../../lib/utils'
 
 interface Props {
   component: DargComponent
@@ -30,25 +31,45 @@ function parseColor(color: string | number | undefined): string | undefined {
 }
 
 export const DargComponentPreview: React.FC<Props> = ({ component, scale = 1 }) => {
+  const getClassNames = () => {
+    const alignmentClasses = {
+      halign: component.halign === 1 ? 'justify-start' 
+        : component.halign === 2 ? 'justify-center'
+        : component.halign === 3 ? 'justify-end'
+        : null,
+      valign: component.valign === 1 ? 'items-start'
+        : component.valign === 2 ? 'items-center'
+        : component.valign === 3 ? 'items-end'
+        : null
+    }
+    
+    const classes = [
+      'relative flex transition-all duration-200',
+      component.clipChildren && 'overflow-hidden',
+      component.behavior?.includes('Button') && 'cursor-pointer',
+      
+      // Flow direction
+      component.flow === 1 && 'flex-row',
+      component.flow === 2 && 'flex-col',
+      
+      // Alignment
+      alignmentClasses.halign,
+      alignmentClasses.valign
+    ]
+
+    const finalClasses = cn(classes)
+    return finalClasses
+  }
+
   const getStyle = (): React.CSSProperties => {
     const style: React.CSSProperties = {
-      display: 'flex',
-      position: 'relative',
       backgroundColor: parseColor(component.fillColor),
-      border: component.borderWidth ? 
-        `${component.borderWidth}px solid ${parseColor(component.borderColor)}` : undefined,
+      borderWidth: component.borderWidth,
+      borderColor: parseColor(component.borderColor),
       borderRadius: component.borderRadius,
       padding: component.padding?.map(p => `${p}px`).join(' '),
       margin: component.margin?.map(m => `${m}px`).join(' '),
-      transition: 'all 0.2s',
-      cursor: component.behavior?.includes('Button') ? 'pointer' : undefined,
-      overflow: component.clipChildren ? 'hidden' : undefined
-    }
-
-    if (component.flow === 1) { // FLOW_HORIZONTAL
-      style.flexDirection = 'row'
-    } else if (component.flow === 2) { // FLOW_VERTICAL
-      style.flexDirection = 'column'
+      gap: component.gap ? `${component.gap}px` : undefined
     }
 
     if (component.size) {
@@ -63,18 +84,6 @@ export const DargComponentPreview: React.FC<Props> = ({ component, scale = 1 }) 
       }
     }
 
-    if (component.halign) {
-      style.justifyContent = component.halign === 1 ? 'flex-start' 
-        : component.halign === 2 ? 'center' 
-        : 'flex-end'
-    }
-
-    if (component.valign) {
-      style.alignItems = component.valign === 1 ? 'flex-start'
-        : component.valign === 2 ? 'center'
-        : 'flex-end' 
-    }
-
     if (component.pos) {
       style.position = 'absolute'
       const [x, y] = component.pos
@@ -82,44 +91,46 @@ export const DargComponentPreview: React.FC<Props> = ({ component, scale = 1 }) 
       style.top = y
     }
 
-    if (component.gap) {
-      style.gap = `${component.gap}px`
-    }
-
     return style
   }
 
+  const finalClassNames = getClassNames()
+  const finalStyle = getStyle()
+  
   const renderContent = () => {
     switch(component.rendObj) {
       case 1: // ROBJ_TEXT
-        return <span style={{
-          color: parseColor(component.color),
-          whiteSpace: 'pre-wrap'
-        }}>{component.text}</span>
+        return (
+          <span 
+            className="whitespace-pre-wrap"
+            style={{ color: parseColor(component.color) }}
+          >
+            {component.text}
+          </span>
+        )
       
       case 2: // ROBJ_IMAGE
-        return <img src={component.image} style={{
-          width: '100%',
-          height: '100%',
-          objectFit: component.keepAspect === 1 ? 'none'
-            : component.keepAspect === 2 ? 'cover'
-            : 'contain'
-        }} />
+        return (
+          <img 
+            src={component.image} 
+            className={cn(
+              'w-full h-full',
+              component.keepAspect === 1 && 'object-none',
+              component.keepAspect === 2 && 'object-cover',
+              !component.keepAspect && 'object-contain'
+            )}
+          />
+        )
       
       case 3: // ROBJ_TEXTAREA
-        return <textarea 
-          value={component.text} 
-          style={{
-            color: parseColor(component.color),
-            resize: 'none',
-            border: 'none',
-            background: 'none',
-            width: '100%',
-            height: '100%',
-            whiteSpace: 'pre-wrap'
-          }}
-          readOnly
-        />
+        return (
+          <textarea 
+            value={component.text}
+            className="w-full h-full resize-none border-none bg-transparent whitespace-pre-wrap"
+            style={{ color: parseColor(component.color) }}
+            readOnly
+          />
+        )
       
       case 4: // ROBJ_BOX
       case 5: // ROBJ_SOLID
@@ -130,7 +141,8 @@ export const DargComponentPreview: React.FC<Props> = ({ component, scale = 1 }) 
 
   return (
     <div 
-      style={getStyle()} 
+      className={finalClassNames}
+      style={finalStyle} 
       onClick={component.onClick ? () => eval(component.onClick) : undefined}
       onMouseEnter={component.onHover ? () => eval(component.onHover) : undefined}
     >

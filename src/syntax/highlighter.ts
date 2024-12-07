@@ -41,7 +41,7 @@ const keywords = [
 export function tokenize(code: string): Token[] {
   const tokens: Token[] = []
   let current = ''
-  let inString = false
+  let inString: string | false = false
   let inComment = false
   
   const addToken = (type: Token['type']) => {

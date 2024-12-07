@@ -1,0 +1,37 @@
+/* Add this to your global CSS */
+.hljs {
+  color: #cdd6f4;
+  background: #1e1e2e;
+}
+
+.hljs-keyword {
+  color: #cba6f7;
+}
+
+.hljs-literal {
+  color: #89b4fa;
+}
+
+.hljs-built_in {
+  color: #94e2d5;
+}
+
+.hljs-string {
+  color: #a6e3a1;
+}
+
+.hljs-number {
+  color: #fab387;
+}
+
+.hljs-comment {
+  color: #7f849c;
+}
+
+.hljs-operator {
+  color: #89dceb;
+}
+
+.hljs-punctuation {
+  color: #f5c2e7;
+} 
