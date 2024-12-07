@@ -2,11 +2,7 @@
 
 import { DargPreviewer } from '@/previewer/Previewer'
 import { useState } from 'react'
-import dynamic from 'next/dynamic'
-
-const DargEditor = dynamic(() => import('@/components/editor').then(mod => mod.DargEditor), {
-  ssr: false
-})
+import { DargEditor } from '@/components/editor'
 
 export default function Page() {
   const [squirrelCode, setSquirrelCode] = useState(`
