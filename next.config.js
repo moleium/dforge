@@ -15,7 +15,8 @@ const nextConfig = {
     return config
   },
   output: 'export',
-  basePath: '/dforge'
+  basePath: process.env.NODE_ENV === 'development' ? '' : '/dforge',
+  reactStrictMode: true,
 }
 
 module.exports = nextConfig

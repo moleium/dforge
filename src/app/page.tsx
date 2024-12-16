@@ -2,7 +2,7 @@
 
 import { DargPreviewer } from '@/previewer/Previewer'
 import { useState } from 'react'
-import { DargEditor } from '@/components/editor' // weird
+import { DargEditor } from '@/components/editor'
 
 export default function Page() {
   const [squirrelCode, setSquirrelCode] = useState(`
@@ -125,7 +125,7 @@ export default function Page() {
 `)
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background" suppressHydrationWarning>
       {/* Left Preview Panel */}
       <div className="flex-1 p-8 border-r border-border">
         <div className="rounded-lg bg-card shadow-xl overflow-hidden">
