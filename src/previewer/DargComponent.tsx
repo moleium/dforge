@@ -46,7 +46,8 @@ export const DargComponentPreview: React.FC<Props> = ({ component, scale = 1 }) 
     const classes = [
       'relative flex transition-all duration-200',
       component.clipChildren && 'overflow-hidden',
-      component.behavior?.includes('Button') && 'cursor-pointer',
+      (component.behavior === 'Behaviors.Button' || 
+       (Array.isArray(component.behavior) && component.behavior.includes('Button'))) && 'cursor-pointer',
       
       // Flow direction
       component.flow === 1 && 'flex-row',

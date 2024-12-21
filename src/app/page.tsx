@@ -58,7 +58,7 @@ export default function Page() {
               borderWidth = 1
               borderColor = Color(50, 100, 50)
               fillColor = Color(30, 60, 30)
-              behavior = ["Button"]
+              behavior = Behaviors.Button
               children = {
                 rendObj = ROBJ_TEXT
                 text = "Dashboard"
@@ -71,7 +71,7 @@ export default function Page() {
               borderWidth = 1
               borderColor = Color(50, 50, 100)
               fillColor = Color(30, 30, 60)
-              behavior = ["Button"]
+              behavior = Behaviors.Button
               children = {
                 rendObj = ROBJ_TEXT
                 text = "Settings"

@@ -253,6 +253,23 @@ export class DargParser {
   }
 
   private parsePrimitive(): any {
+    if (this.current() === 'B' && this.source.slice(this.pos).startsWith('Behaviors.')) {
+      // Skip "Behaviors."
+      this.advance(); // B
+      this.advance(); // e
+      this.advance(); // h
+      this.advance(); // a
+      this.advance(); // v
+      this.advance(); // i
+      this.advance(); // o
+      this.advance(); // r
+      this.advance(); // s
+      this.advance(); // .
+      
+      const behavior = this.parseIdentifier()
+      return `Behaviors.${behavior}`
+    }
+
     if (this.current() === 'A' && this.source.slice(this.pos).startsWith('ALIGN_')) {
       const identifier = this.parseIdentifier()
       switch(identifier) {

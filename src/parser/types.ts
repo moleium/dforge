@@ -3,7 +3,7 @@ export type DargComponent = {
   rendObj?: number
   children?: DargComponent[] | DargComponent
   watch?: any[]
-  behavior?: string[]
+  behavior?: string | string[]
   flow?: number
   pos?: [number, number]
   halign?: number
@@ -52,10 +52,10 @@ export enum KeepAspect {
   KEEP_ASPECT_FIT = 3
 }
 
-export enum Behavior {
-  Button = "Button",
-  TextArea = "TextArea",
-  WheelScroll = "WheelScroll",
-  InspectPicker = "InspectPicker",
-  BoundToArea = "BoundToArea"
+export enum Behaviors {
+  Button = "Behaviors.Button",
+  TextArea = "Behaviors.TextArea",
+  WheelScroll = "Behaviors.WheelScroll",
+  InspectPicker = "Behaviors.InspectPicker",
+  BoundToArea = "Behaviors.BoundToArea"
 }
