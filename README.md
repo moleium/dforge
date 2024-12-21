@@ -7,7 +7,6 @@ dforge provides a real-time preview environment for developing daRg UI component
 ## Features
 
 - Real-time preview of daRg UI components
-- Syntax highlighting
 - Support for (almost) all daRg's declarative syntax
 
 # TODO

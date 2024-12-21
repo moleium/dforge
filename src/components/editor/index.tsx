@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { cn } from '@lib/utils'
-import hljs from 'highlight.js'
-import '@highlight/styles/catppuccin.css'
-import '@highlight/darg'
+import AceEditor from 'react-ace'
+
+import 'ace-builds/src-noconflict/theme-one_dark'
+import 'ace-builds/src-noconflict/ext-language_tools'
 
 interface Props {
   value: string
@@ -17,52 +18,30 @@ export const DargEditor: React.FC<Props> = ({
   onChange,
   className 
 }) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const preRef = useRef<HTMLPreElement>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (preRef.current) {
-      const highlighted = hljs.highlight(value, { language: 'DaRg' }).value
-      preRef.current.innerHTML = highlighted
-      preRef.current.className = 'hljs p-4 m-0 bg-transparent pointer-events-none'
-    }
-  }, [value])
-
-  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
-    const target = e.target as HTMLElement
-    if (scrollRef.current && target !== scrollRef.current) {
-      scrollRef.current.scrollTop = target.scrollTop
-      scrollRef.current.scrollLeft = target.scrollLeft
-    }
-  }
-
   return (
     <div className={cn(
       "relative rounded-lg border border-border overflow-hidden font-mono text-sm",
       className
     )}>
-      <div 
-        ref={scrollRef}
-        className="absolute inset-0 overflow-auto"
-        onScroll={handleScroll}
-      >
-        <pre 
-          ref={preRef}
-          className="p-4 m-0 bg-transparent pointer-events-none"
-          aria-hidden="true"
-        />
-      </div>
-      <textarea
-        ref={textareaRef}
+      <AceEditor
+        theme="one_dark"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onScroll={handleScroll}
-        spellCheck={false}
-        className={cn(
-          "absolute inset-0 w-full h-full p-4 bg-transparent text-transparent caret-white resize-none",
-          "focus:outline-none focus:ring-0"
-        )}
+        onChange={onChange}
+        name="darg-editor"
+        width="100%"
+        height="100%"
+        fontSize={14}
+        showPrintMargin={false}
+        showGutter={true}
+        highlightActiveLine={true}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          showLineNumbers: true,
+          tabSize: 2,
+          useWorker: false,
+        }}
       />
     </div>
   )
